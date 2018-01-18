@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Dr. Joyce Schenkein's Hemaniopia Curing Extravaganza
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/xmldata">
+  <CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+    <CORSRule>
+        <AllowedOrigin>*</AllowedOrigin>
+        <AllowedOrigin>https://momvisionproject.herokuapp.com</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <MaxAgeSeconds>3000</MaxAgeSeconds>
+        <AllowedHeader>Authorization</AllowedHeader>
+        <AllowedHeader>x-requested-with</AllowedHeader>
+        <AllowedHeader>origin</AllowedHeader>
+    </CORSRule>
+  </CORSConfiguration>
+  </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    display: inline;
+  }
+  div#selectors {
+    display: inline;
+    float: left;
+  }
+
+  div#display {
+    float: right;
+    font-size: 30px;
+    top: 0em;
+    width: 69%;
+    color: white;
+    font-family: "Times New Roman", Georgia, Serif;
+  }
+
+  div#containerForMultGraphs {
+    float: right;
+    width: 31%;
+    overflow: auto;
+    resize: both;
+    height: 40em;
+    top: 0;
+    border:1px solid black;
+  }
+  div#PatientSelect {
+    color: white;
+    font-size: 20px;
+    font-family: "Times New Roman", Georgia, Serif;
+  }
+  div#quadrantGraph {
+    color: white;
+    font-size: 20px;
+    font-family: "Times New Roman", Georgia, Serif;
+  }
+  div#dateHolder {
+    color: white;
+    font-size: 20px;
+    left: 0;
+    top: 0;
+    font-family: "Times New Roman", Georgia, Serif;
+  }
+  /* Add a black background color to the top navigation */
+  .topnav {
+    background-color: Black;
+    height: 120px;
+}
+.topnav select {
+    display: block;
+    margin: 0 auto;
+    float: auto;
+    color: black;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+
+</style>
+</head>
+<body ng-app="MomVision">
+  {% verbatim %}
+  <div ng-controller="VisionController">
+    <!--Nav bar with selection -->
+    <div class="topnav" id="selection">
+      <!--Scope display of patient trial and date -->
+      <div id="display">{{display}}</div>
+      <div id="selectors">
+        <div id="PatientSelect">Select Patient:</div>
+        <select id="PatientNameSelector" ng-model="PatientName" ng-change="PatientDateSelection(PatientName)">
+          <option ng-repeat="name in PatientNameAndTrialData" value="{{name['Patient Name']}}">{{name['Patient Name']}}</option>
+        </select>
+
+        <div id="quadrantGraph">Graph By Quadrant:</div>
+        <select id="quadrantGraphSelector" ng-model="QuadrantSelect" ng-change="QuadrantGraphSelection(QuadrantSelect)">
+          <option ng-repeat="quadrant in quadrantOptions" value="{{quadrant}}">{{quadrant}}</option>
+        </select>
+
+        <div id="dateHolder">
+        <div id="DateSelect">Select Trial Date:</div>
+        <select id="TrialDateSelector" ng-model="TrialDate" ng-change=PatientDataAcquisition(TrialDate)>
+          <option ng-repeat="date in PatientTrialDates" value={{date}}>{{date}}</option>
+        </select>
+      </div>
+      </div>
+  </div>
+    <div class=".active" id="containerForMultGraphs">
+      <!--Display for Angular built graph thumbnil for all trials on trial date -->
+      <all-patient-trials data="allPatientTrialData" counter="counter"></all-patient-trials>
+    </div>
+    <!--The display for the selected trial -->
+    <svg id="SingleLineGaphSvg"></svg>
+    <patient-linechart data="userData"></patient-linechart>
+  </div>
+  <!-- CDN Stuff -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular-route.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular-sanitize.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.min.js"></script>
+  <script src="../static/assets/js/AngularGraphingAPP.js"></script>
+  <script src="../static/assets/js/BlindSightController.js"></script>
+  <script src="../static/assets/js/VisionDirective.js"></script>
+  <script src="../static/assets/js/allTrialsAtOnceVisionDirective.js"></script>
+
+  {% endverbatim %}
+</body>
+</html>
