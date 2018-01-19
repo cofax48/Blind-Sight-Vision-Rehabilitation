@@ -1,7 +1,7 @@
 //Global variable to keep track of axis draws
 var counter = 0;
 
-MomVision.directive('patientLinechart', function(){
+BlindSightVision.directive('patientLinechart', function(){
   function link(scope, element, attr){
     scope.$watch('data', function(data){
       //if theres data
