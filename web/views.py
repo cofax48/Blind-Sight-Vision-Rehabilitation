@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from sqlalchemy import create_engine
 
-engine = create_engine('postgres://zgzikcxqdqxxhz:59381b691d83aaf49569ef296b6e1ebc612f938954cb077783ad6f616e489820@ec2-23-23-225-12.compute-1.amazonaws.com:5432/dbn60sk0nc6tbg')
+engine = create_engine('postgres://'JUST for me' @ec2-23-23-225-12.compute-1.amazonaws.com:5432/dbn60sk0nc6tbg')
 conn = engine.connect()
 
 #User's Real Name, Date, Institution -How tables should be named
