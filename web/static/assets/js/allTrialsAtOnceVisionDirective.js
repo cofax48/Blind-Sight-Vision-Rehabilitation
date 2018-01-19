@@ -1,4 +1,4 @@
-MomVision.directive('allPatientTrials', function(){
+BlindSightVision.directive('allPatientTrials', function(){
   function link(scope, element, attr){
     scope.$watch('data', function(data){
         if (data != null) {
